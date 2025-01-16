@@ -27,19 +27,6 @@ def logout_view(request):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('dashboard')
-        else:
-            return render(request, 'user/login.html', {'error': 'ID 또는 패스워드를 다시 입력하십시오'})
-    return render(request, 'user/login.html')
-
-
-def login_view(request):
-    if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -47,7 +34,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('gane:dashboard')
+                return redirect('game:dashboard')
             else:
                 return render(request, 'user/login.html', {'form': form, 'invalid_creds': True})
     else:

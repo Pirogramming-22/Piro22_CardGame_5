@@ -6,6 +6,7 @@ app_name = 'game'
 
 urlpatterns = [
     path('game/history/' , views.gameHistory , name="gameHistory"),
+    path('game/delete/<int:pk>/', views.delete_game, name='delete_game'),
     path('game/rankingTop3/' , views.gameRankingTop3 , name="gameRankingTop3"),
     path('game/ranking/' , views.gameRanking , name="gameRanking"),
     path('dashboard/', dashboard_view, name='dashboard'),

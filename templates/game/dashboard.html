@@ -6,11 +6,11 @@
 <body>
     {% if user.is_authenticated %}
         <h1>Welcome to the Dashboard, {{ user.username }}!</h1>
-        <button onclick="location.href=''">Start Game</button>
-        <button onclick="location.href=''">Game History</button>
+        <a href="">Start Game</a>
+        <a href="{% url 'game:gameHistory' %}">Game History</a>
     {% else %}
         <h1>Welcome to the Game!</h1>
-        <button onclick="location.href='{% url 'login' %}'">Start Playing</button>
+        <a href="{% url 'user:login' %}">Start Playing</a>
     {% endif %}
 </body>
 </html>
