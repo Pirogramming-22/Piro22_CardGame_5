@@ -21,7 +21,7 @@ from game.views import dashboard_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', dashboard_view, name='home'),
+    path('dash/', dashboard_view, name='home'),
     path('',include(game.urls)),
     path('' , include(user.urls)),
 ]

@@ -22,7 +22,7 @@ def signup_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('user:login')
+    return redirect('game:base')
 
 
 def login_view(request):
@@ -47,7 +47,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('gane:dashboard')
+                return redirect('game:dashboard')
             else:
                 return render(request, 'user/login.html', {'form': form, 'invalid_creds': True})
     else:

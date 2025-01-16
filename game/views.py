@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+def base(request):
+    return render(request, 'main.html')
 
 def dashboard_view(request):
     if not request.user.is_authenticated:

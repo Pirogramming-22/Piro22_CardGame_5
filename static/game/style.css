@@ -1,0 +1,65 @@
+/* 전체 배경 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    background-image: url('../images/background.png');
+}
+
+/* 네비게이션 바 */
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 10px 0;
+    font-size: 18px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+/* 컨테이너 */
+.container {
+    width: 50%;
+    height: 60dvh;
+    margin: 80px auto;
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+}
+.game_content {
+    width: 50%;
+    height: 60dvh;
+    margin: 80px auto;
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+}
+/* 제목 */
+h1 {
+    font-size: 36px;
+    text-transform: uppercase;
+    color: white;
+}
+
+a button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.dashboard_user {
+    color: black;
+}

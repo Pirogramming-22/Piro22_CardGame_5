@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{%static 'game/global.css'%}">  
+  <style>
+    /* 전체 배경 */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-size: cover;
+        background-image: url("{% static 'images/background.png' %}");
+    }
+
+    /* 네비게이션 바 */
+    nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.9);
+        padding: 0;
+        font-size: 18px;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 15px;
+    }
+
+    /* 제목 */
+    h1 {
+        font-size: 36px;
+        text-transform: uppercase;
+        color: white;
+    }
+
+    a button {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        color: black;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .main_nav {
+        display: flex;
+        gap: 50px;
+    }
+    section {
+        background-color: white;
+        width: 60dvh;
+        margin: 100px auto;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 60dvh;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    section p {
+        font-weight: bold;
+        font-size: 4rem;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+    .login_btn_start {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        color: black;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        background-color: var(--start);
+        
+    }
+
+  </style>
+</head>
+<body>
+  <main>
+    <nav>
+        <div>
+            <a href="/"><h1>Piro Card Game</h1></a>
+        </div>
+        <div class="main_nav">
+            <a href="{% url 'user:login'%}" class="mx-2">
+                <button type="button" class="btn btn-info">로그인</button>
+            </a>
+            <a href="{% url 'user:signup'%}" class="mx-2">
+                <button type="button" class="btn btn-warning">회원가입</button>
+            </a>
+        </div>
+    </nav>
+  </main>
+  <section>
+    <p>Piro Game</p>
+    <button type="button" class="login_btn_start">Start</button>
+  </section>
+
+</body>
+</html>
