@@ -28,7 +28,7 @@ def login_view(request):
             login(request, user)
             return redirect('dashboard')
         else:
-            return render(request, 'user/login.html', {'error': 'Invalid username or password'})
+            return render(request, 'user/login.html', {'error': 'ID 또는 패스워드를 다시 입력하십시오'})
     return render(request, 'user/login.html')
 
 
@@ -50,4 +50,4 @@ def login_view(request):
 
 @login_required
 def dashboard_view(request):
-    return render(request, 'user/dashboard.html')
+    return render(request, 'game/dashboard.html')
