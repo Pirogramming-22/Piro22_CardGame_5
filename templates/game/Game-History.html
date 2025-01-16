@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for game in games %}
+    <p>{{game.player1}}</p>
+    <p>{{game.player2}}</p>
+    <p>{{game.player1_choice}}</p>
+    <p>{{game.player2_choice}}</p>
+    <p>{{game.status}}</p>
+    <p>{{game.winner}}</p>
+    <p>{{game.created_at}}</p>
+    <p>{{user.username}}</p>
+    {% endfor %}
+</body>
+</html>
