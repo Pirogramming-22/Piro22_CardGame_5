@@ -59,4 +59,5 @@
 ```
 pip install django
 pip install social-auth-app-django
+pip install django-environ
 ```
