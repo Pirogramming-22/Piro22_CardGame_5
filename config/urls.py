@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 import user.urls , game.urls
+from game.views import dashboard_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('' , include(user.urls)),
+    path('', dashboard_view, name='home'),
     path('',include(game.urls)),
+    path('' , include(user.urls)),
 ]

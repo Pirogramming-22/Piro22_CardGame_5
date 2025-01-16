@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm
@@ -14,10 +14,16 @@ def signup_view(request):
             user = authenticate(username=username, password=raw_password)
             if user is not None:
                 login(request, user)
-                return redirect('dashboard')
+                return redirect('game:dashboard')
     else:
         form = SignUpForm()
     return render(request, 'user/signup.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('user:login')
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -41,7 +47,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('dashboard')  # 대시보드 뷰의 URL 이름
+                return redirect('gane:dashboard')
             else:
                 return render(request, 'user/login.html', {'form': form, 'invalid_creds': True})
     else:
@@ -51,3 +57,4 @@ def login_view(request):
 @login_required
 def dashboard_view(request):
     return render(request, 'game/dashboard.html')
+
