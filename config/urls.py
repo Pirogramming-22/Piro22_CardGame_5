@@ -24,4 +24,5 @@ urlpatterns = [
     path('', dashboard_view, name='home'),
     path('',include(game.urls)),
     path('' , include(user.urls)),
+    path('', include('social_django.urls', namespace='social')),
 ]
