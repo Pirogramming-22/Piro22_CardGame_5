@@ -23,7 +23,7 @@ def signup_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('game:dashboard')
+    return redirect('game:base')
 
 def login_view(request):
     if request.method == 'POST':
