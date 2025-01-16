@@ -7,6 +7,10 @@ class SignUpForm(UserCreationForm):
         max_length=30,
         help_text='150자 이하 문자, 숫자 그리고 @/./+/-/_만 가능합니다.'
     )
+    email = forms.EmailField(
+        max_length=255,
+        help_text='유효한 이메일 주소를 입력하세요.'
+    )
     password1 = forms.CharField(
         widget=forms.PasswordInput,
         help_text='최소 8자 이상의 비밀번호를 입력하십시오'
@@ -17,5 +21,5 @@ class SignUpForm(UserCreationForm):
     )
 
     class Meta:
-        model = get_user_model()  # Ensure it uses the custom user model.
-        fields = ('username', 'password1', 'password2')
+        model = get_user_model()
+        fields = ('username', 'email', 'password1', 'password2')

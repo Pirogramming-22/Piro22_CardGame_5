@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def dashboard_view(request):
-    if not request.user.is_authenticated:
-        return redirect('user:login')  # 로그인 페이지로 리디렉션
-    return render(request, 'game/dashboard.html')
+    user = request.user  # 현재 로그인한 사용자
+    username = user.username  # OAuth 연결 여부와 상관없이 사용자 이름을 사용
+    return render(request, 'game/dashboard.html', {'username': username})
 
 @login_required
 def game_start_view(request):

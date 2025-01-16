@@ -8,7 +8,7 @@ def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save() 
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
@@ -19,24 +19,9 @@ def signup_view(request):
         form = SignUpForm()
     return render(request, 'user/signup.html', {'form': form})
 
-
 def logout_view(request):
     logout(request)
     return redirect('user:login')
-
-
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('dashboard')
-        else:
-            return render(request, 'user/login.html', {'error': 'ID 또는 패스워드를 다시 입력하십시오'})
-    return render(request, 'user/login.html')
-
 
 def login_view(request):
     if request.method == 'POST':
@@ -47,7 +32,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('gane:dashboard')
+                return redirect('game:dashboard') 
             else:
                 return render(request, 'user/login.html', {'form': form, 'invalid_creds': True})
     else:
@@ -56,5 +41,4 @@ def login_view(request):
 
 @login_required
 def dashboard_view(request):
-    return render(request, 'game/dashboard.html')
-
+    return render(request, 'game/dashboard.html') 
