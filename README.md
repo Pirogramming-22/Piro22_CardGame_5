@@ -1,8 +1,6 @@
 # Piro22_CardGame_5
 
-## 과제 협의사항
-
-### 1. Commit Type
+## 1. Commit Type
 
 | Keyword | When to use |
 | --- | --- |
@@ -24,7 +22,7 @@
 - 주요 부분 완성할 때 마다 main에 merge 하여 자주 동기화
 - Merge 할 때 마다 팀원들에게 전파하기
 
-### 2. 협업을 위한 업무분장
+## 2. 협업을 위한 업무분장
 
 과제를 부여받은 즉시, `Sprint Planning`을 통해 figma 프로토타입을 먼저 제작하고, 전체적인 플로우차트를 구현하였다.
 
