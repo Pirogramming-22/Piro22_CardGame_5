@@ -94,6 +94,9 @@
         margin-top: 20px;
         color: rgb(216, 120, 2);
     }
+    .login_elements {
+      margin: 30px auto;
+    }
    
 
   </style>
@@ -103,7 +106,9 @@
     <h1>로그인</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="login_elements">
+          {{ form.as_p }}
+        </div>
         <div class="login_btn">
             <button type="submit" class="login-btn">로그인</button>
             <p class="signup-link">계정이 없으신가요?  <a href="{% url 'user:signup'%}"> 회원가입</a></p>

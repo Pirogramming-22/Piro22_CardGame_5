@@ -17,15 +17,15 @@ class SignUpForm(UserCreationForm):
     )
     email = forms.EmailField(
         max_length=255,
-        help_text='유효한 이메일 주소를 입력하세요.'
+       
     )
     password1 = forms.CharField(
         widget=forms.PasswordInput,
-        help_text='최소 8자 이상의 비밀번호를 입력하십시오'
+        
     )
     password2 = forms.CharField(
         widget=forms.PasswordInput,
-        help_text='같은 비밀번호를 한번 더 입력하십시오'
+        
     )
 
     class Meta:

@@ -1,28 +1,29 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<!-- 완전 프로토 타입 테스트용입니다. 언제든 삭제하셔도 무방해요! -->
+{% block content %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Top 3</h1>
-    <ul >
+<div class="ranking_container">
+    <div id="bar-container" class="bar-container">
+   
+    </div>
+    
+    <div id="ranking-list" class="ranking">
+        <!-- 랭킹 리스트가 동적으로 추가될 위치 -->
+    </div>
+    
+    <!-- 사용자 데이터를 HTML에 숨겨둠 -->
+    <ul id="user-data" style="display: none;">
         {% for user in top3_users %}
-            <li>{{ user.username }} - {{ user.point }}</li>
-            <div class="bar" style="width: {% widthratio user.point 1 20 %}px;"></div> <!-- 이부분 아마 css로 빼려면 js로 써야할 것 같습니다!! -->
-
-            <style>
-                .bar {
-                    height: 20px;
-                    background-color: blue;
-                }
-            </style>
+        <li data-username="{{ user.username }}" data-points="{{ user.point }}"></li>
         {% endfor %}
     </ul>
-    <a href="{% url 'game:dashboard' %}">Dashboard</a>
-</body>
-</html>
+    
+    <button class="game_ranking_btn">
+        <a href="{% url 'game:dashboard' %}">Dashboard</a>
+    </button>
+</div>
+
+
+{% load static %}
+<script src="{% static 'game/game-ranking-top3.js' %}"></script>
+{% endblock %}

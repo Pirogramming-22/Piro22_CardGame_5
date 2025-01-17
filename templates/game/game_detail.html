@@ -10,7 +10,7 @@
             <p>나: {{ match.player1_choice }}</p>
             <form action="{% url 'game:delete_game' match.pk %}" method="post">
                 {% csrf_token %}
-                <button type="submit">게임취소</button>
+                <button class="counter" type="submit">게임취소</button>
             </form>
             <a href="{% url 'game:gameHistory' %}" class="mx-2">
                 <button type="button">전적목록</button>
@@ -20,6 +20,7 @@
             <p>{{ match.player1.username }}: {{ match.player1_choice }}</p>
             <p>{{ match.player2.username }}: {{ match.player2_choice }}</p>
             <p>결과: {{ match.result }}</p>
+            <hr>
             <p>점수: {{ match.score }}</p>
             <a href="{% url 'game:gameHistory' %}" class="mx-2">
                 <button type="button">전적목록</button>
