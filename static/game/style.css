@@ -59,6 +59,14 @@ label {
     justify-content: center;
 
 }
+.history-list {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    list-style-type: none;
+    margin: 0;
+}
 .game-result {
     background-color: var(--result);
 }
@@ -68,9 +76,7 @@ label {
 .game-ing {
     background-color: var(--game-ing);
 }
-.game-ing:hover {
-    background-color: #41C400;
-}
+
 .cancel {
     background-color: green;
     font-size: small;
@@ -94,7 +100,7 @@ label {
 .game_history {
     background-color: var(--list);
 }
-.game_history {
+.game_history:hover {
     background-color: #FF8500;
 }
 .game_content {

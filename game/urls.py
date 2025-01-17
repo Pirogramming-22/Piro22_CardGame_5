@@ -17,4 +17,5 @@ urlpatterns = [
     path('game/start/', views.game_start_view, name='game_start_view'),
     path('game/create/', views.create_game, name='create_game'),
     path('game/counterattack/<int:pk>/', views.go_counterattack, name="counterattack"),
+    path('game/before_detail/<int:pk>/', views.before_detail, name="before_detail"),
 ]
