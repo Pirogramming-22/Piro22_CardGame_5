@@ -70,13 +70,9 @@ label {
 .game-result {
     background-color: var(--result);
 }
-.game-result:hover {
-    background-color: var(--start);
-}
 .game-ing {
     background-color: var(--game-ing);
 }
-
 .cancel {
     background-color: green;
     font-size: small;
