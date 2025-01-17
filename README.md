@@ -1,6 +1,6 @@
 # 🖐️Piro22_CardGame_5🖐️
 
-# 0. 📜의존성 목록 정리
+## 0. 📜의존성 목록 정리
 ```
 pip install django
 pip install social-auth-app-django
