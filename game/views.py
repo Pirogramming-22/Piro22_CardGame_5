@@ -192,8 +192,16 @@ def before_detail(request, pk):
     game.player1.save()
     game.player2.save()
 
-    player1_score = int(game.player1_choice)
-    player2_score = int(game.player2_choice)
+    if game.winner == game.player1:
+        player1_score = int(game.player1_choice)
+        player2_score = -int(game.player2_choice)
+
+    elif game.winner == game.player2:
+        player2_score = int(game.player2_choice)
+        player1_score = -int(game.player1_choice)
+
+    else :
+        pass
 
     if game.player1 == request.user:
         return render(request, 'game/game_detail.html', {
@@ -203,7 +211,47 @@ def before_detail(request, pk):
     elif game.player2 == request.user:
         return render(request, 'game/game_detail.html', {
             'match': game,
-            'point': -player2_score,
+            'point': player2_score,
+        })
+    else:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': 0,
+        })
+
+
+def please(request, pk): #조회용 함수
+    if not request.user.is_authenticated:
+        return redirect('user:login')
+
+    if request.method != 'POST':
+        return HttpResponseBadRequest("잘못된 요청입니다.")
+
+    game = get_object_or_404(Game, pk=pk)
+
+    game.player1.save()
+    game.player2.save()
+
+    if game.winner == game.player1:
+        player1_score = int(game.player1_choice)
+        player2_score = -int(game.player2_choice)
+
+    elif game.winner == game.player2:
+        player2_score = int(game.player2_choice)
+        player1_score = -int(game.player1_choice)
+
+    else :
+        pass
+
+    if game.player1 == request.user:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': player1_score,
+        })
+    elif game.player2 == request.user:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': player2_score,
         })
     else:
         return render(request, 'game/game_detail.html', {

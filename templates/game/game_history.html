@@ -26,9 +26,10 @@
                                 </form>
                             {% endif %}
                         </span>
-                        <a href="{% url 'game:game_detail' game.pk %}" class="mx-2">
-                            <button type="button" class="game_info">게임정보</button>
-                        </a>
+                        <form action="{% url 'game:please' game.pk %}" method="post" class="mx-2">
+                            {% csrf_token %}
+                            <button type="submit" class="game_info">게임정보</button>
+                        </form>
                     </li>
                 {% endfor %}
             </ul>
