@@ -1,5 +1,12 @@
 # Piro22_CardGame_5
 
+## 의존성 목록 정리
+```
+pip install django
+pip install social-auth-app-django
+pip install django-environ
+```
+
 ## 1. Commit Type
 
 | Keyword | When to use |
@@ -54,9 +61,3 @@
 
 ## 프로젝트 설명
 
-
-## 의존성 목록 정리
-```
-pip install django
-pip install social-auth-app-django
-```

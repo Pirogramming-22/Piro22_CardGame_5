@@ -13,4 +13,5 @@ urlpatterns = [
     path('dashboard/', dashboard_view, name='dashboard'),
     path('game/start/', views.game_start_view, name='game_start_view'),
     path('game/attack/<int:pk>/', views.attack, name='attack'),
+    path('', views.base, name='base'),
 ]

@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{%static 'game/style.css'%}">  
+  <link rel="stylesheet" href="{%static 'game/style.css'%}"> 
+  <link rel="stylesheet" href="{%static 'game/global.css'%}">   
   {%block head%}
-  
   {% endblock %}
 </head>
 <body>
@@ -14,14 +14,14 @@
     <nav>
     <a href="/"><h1>Piro Card Game</h1></a>
     <a href="" class="mx-2">
-      <button type="button">게임하기</button>
+      <button type="button" class="btn btn-info">게임하기</button>
     </a>
     <a href="" class="mx-2">
-      <button type="button">랭킹보기</button>
+      <button type="button" class="btn btn-warning">랭킹보기</button>
     </a>
-    <a href="" class="mx-2">
-        <button type="button">로그아웃</button>
-      </a>
+    <a href="{% url 'user:logout' %}" class="mx-2">
+        <button type="button" class="btn btn-info">로그아웃</button>
+    </a>
     </nav>
     <div class="container">
         {%block content%}
@@ -33,3 +33,4 @@
   <script></script>
 </body>
 </html>
+
