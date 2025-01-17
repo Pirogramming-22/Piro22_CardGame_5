@@ -50,4 +50,4 @@ function generateRanking() {
     });
 }
 
-generateRanking();
+generateRanking(); 
