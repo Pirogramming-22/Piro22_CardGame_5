@@ -10,4 +10,5 @@ urlpatterns = [
     path('game/rankingTop3/' , views.gameRankingTop3 , name="gameRankingTop3"),
     path('game/ranking/' , views.gameRanking , name="gameRanking"),
     path('dashboard/', dashboard_view, name='dashboard'),
+    path('', views.base, name='base'),
 ]

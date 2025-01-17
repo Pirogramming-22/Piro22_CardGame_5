@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+    {% if user.is_authenticated %}
+        <div class="dashboard_elements">
+            <h1 class="dashboard_title">Piro Game</h1>
+            <p class="dashboard_username">{{ user.username }}님이 로그인 중</h>
+            <div class="dashboard_button">
+                <button onclick="location.href=''" class="dashboard_start">Start </button>
+                <button onclick="location.href=''" class="dashboard_list">List </button>
+            </div>
+        </div>
+    {% else %}
+        <h1>Welcome to the Game!</h1>
+        <button onclick="location.href='{% url 'user:login' %}'">Start Playing</button>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

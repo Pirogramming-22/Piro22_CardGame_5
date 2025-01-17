@@ -46,10 +46,13 @@ def gameRanking(request):
     }
     return render(request, 'game/Game-Ranking.html', context=ctx)
 
+def base(request):
+    return render(request, 'main.html')
+
 def dashboard_view(request):
-    if not request.user.is_authenticated:
-        return redirect('user:login')  # 로그인 페이지로 리디렉션
-    return render(request, 'game/dashboard.html')
+    user = request.user  # 현재 로그인한 사용자
+    username = user.username  # OAuth 연결 여부와 상관없이 사용자 이름을 사용
+    return render(request, 'game/dashboard.html', {'username': username})
 
 def game_start_view(request):
     if not request.user.is_authenticated:
@@ -58,7 +61,4 @@ def game_start_view(request):
     return render(request, 'game_start.html')
 
 def game_history_view(request):
-    if not request.user.is_authenticated:
-        return redirect('user:login')
-
     return render(request, 'game_history.html')
