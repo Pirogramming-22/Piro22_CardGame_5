@@ -41,6 +41,7 @@ function generateRanking() {
         barContainer.appendChild(bar);
 
         // 랭킹 리스트 생성 
+        // 막대 안에 순위만 표시
         const rank = document.createElement("p");
         rank.textContent = `${currentRank}위: ${user.username} (${user.points}점)`;
         rankingList.appendChild(rank);

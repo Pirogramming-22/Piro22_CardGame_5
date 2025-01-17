@@ -54,7 +54,7 @@ def gameHistory(request): #1
         'games': games,
         'user': user,
     }
-    return render(request, 'game/game-history.html', context=ctx)
+    return render(request, 'game/game_history.html', context=ctx)
 
 
 def delete_game(request, pk): #2
@@ -211,3 +211,26 @@ def counterattack(request, game_pk):
 def game_detail(request, pk): #8
     game = Game.objects.get(id=pk)
     return render(request, 'game/game_detail.html', {'match': game})
+
+def go_counterattack(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('user:login')   
+    
+    game = get_object_or_404(Game, pk=pk) 
+    return render(request, 'game/counter_attack.html', {'game':game})
+
+def counterattack_view(request, pk):
+   if not request.user.is_authenticated:
+        return redirect('user:login')
+   
+   game = get_object_or_404(Game, pk=pk) 
+   
+   if request.method == 'POST':
+        cards = random.sample(range(1, 11), 5)  
+        selected_card = request.POST.get('card')  
+        defender = game.player2 if game.player1 == request.user else game.player1 
+        game.player1_choice = selected_card if game.player1 == request.user else game.player1_choice
+        game.player2_choice = selected_card if game.player2 == request.user else game.player2_choice
+        game.save()
+        game.determine_winner()
+        return render(request, 'game/game_detail.html', {'game': game, 'cards': cards})

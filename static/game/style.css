@@ -73,6 +73,11 @@ label {
 }
 .cancel {
     background-color: green;
+    font-size: small;
+    color: var(--white);
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
 }
 .game_info {
     background-color: var(--info);
@@ -120,6 +125,19 @@ p {
     font-size: 15px;
     margin-block: 10px;
 }
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 button {
     display: inline-block;
     padding: 10px 20px;
@@ -130,6 +148,7 @@ button {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    margin-block: 5px;
 }
 .dashboard_username {
     font-size: 1.3rem;

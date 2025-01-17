@@ -18,5 +18,4 @@ urlpatterns = [
     path('game/attack/', views.attack, name='attack'),
     path('game/create/', views.create_game, name='create_game'),
     path('game/counterattack/<int:pk>/', views.counterattack, name="counterattack")
-
 ]

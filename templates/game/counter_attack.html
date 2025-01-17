@@ -15,7 +15,9 @@
                 </label>
             {% endfor %}
         </div>
-        <button type="submit" class="counter">CounterAttack!</button>
+        <a href="{% url 'game:counterattack' %}" class="mx-2">
+            <button type="submit" class="counter">CounterAttack!</button>
+        </a>
     </form>
 </div>
 {% endblock %}
