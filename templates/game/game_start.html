@@ -20,7 +20,6 @@
         <label for="defender">Defender:</label>
         <select id="defender" name="defender">
             {% for user in defenders %}
-                <option value="" selected disabled>--------------</option>
                 <option value="{{ user.id }}">{{ user.username }}</option>
             {% endfor %}
         </select>

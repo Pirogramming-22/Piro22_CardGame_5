@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Game
 from django.conf import settings  # settings.AUTH_USER_MODEL 사용
 from django.db.models import Q
@@ -49,8 +49,6 @@ def game_start_view(request):
     if not request.user.is_authenticated:
         return redirect('user:login')
     game = Game.objects.first()
-    if not game:
-        game = None
     cards = random.sample(range(1, 11), 5)
     defenders = CustomUser.objects.exclude(id=request.user.id)
 
@@ -67,20 +65,25 @@ def game_history_view(request):
 
     return render(request, 'game_history.html')
 
-def attack(request, game_pk):
+def attack(request):
     if not request.user.is_authenticated:
         return redirect('user:login')
-    game = Game.objects.get(pk=game_pk)
+    game = Game.objects.first()
 
     if request.method == 'POST':
         selected_card = int(request.POST.get('card'))  
+        if not selected_card:
+            return HttpResponseBadRequest("카드를 선택해야 합니다.")
+
+        selected_card = int(selected_card)  
+
         defender_id = int(request.POST.get('defender'))  
-        
         defender = CustomUser.objects.get(pk=defender_id)
 
         if game.player1 == request.user:
             game.player1_choice = selected_card
-            game.player2 = defender
+            if game.player2 is None:
+                game.player2 = defender
         elif game.player2 == request.user:
             game.player2_choice = selected_card
 
@@ -88,7 +91,71 @@ def attack(request, game_pk):
 
         game.determine_winner()
 
-        return redirect('game:gameHistory')  
-    return HttpResponseBadRequest("잘못된 요청입니다.")
-    
+        result = "무승부"
+        if game.winner:
+            result = 'win' if game.winner == game.player1 else 'lose'
 
+        if game.winner: 
+            status = 'finished'
+        elif game.player2 == defender:  
+            status = 'counterattack'
+        else:  
+            status = 'in_progress'
+            
+        games = {
+            'match': {
+                'attacker': game.player1.username, 
+                'defender': game.player2.username,  
+                'attacker_card': game.player1_choice,  
+                'defender_card': game.player2_choice,  
+                'result': result,  
+                'status': status,
+            }
+        }
+        return render('game/game_history.html', context=games)  
+    return HttpResponseBadRequest("잘못된 요청입니다.")
+
+def counterattack(request, game_pk):
+    if not request.user.is_authenticated:
+        return redirect('user:login')  
+    
+    game = get_object_or_404(Game, pk=game_pk)  
+
+    if request.method == 'POST':
+        selected_card = request.POST.get('card')  
+
+        if not selected_card:
+            return HttpResponseBadRequest("카드를 선택해야 합니다.")
+
+        selected_card = int(selected_card)  
+
+        if game.player1 == request.user:
+            game.player1_choice = selected_card 
+        elif game.player2 == request.user:
+            game.player2_choice = selected_card  
+        else:
+            return HttpResponseBadRequest("현재 게임에 참여하지 않은 사용자입니다.")
+
+        game.save()  
+        game.determine_winner()
+
+        # 게임 결과 기록을 저장
+        result = "무승부"
+        if game.winner:
+            result = 'win' if game.winner == game.player1 else 'lose'
+
+        if game.winner: 
+            status = 'finished'
+        result_data = {
+            'match': {
+                'number': game.pk,  
+                'attacker': game.player1.username, 
+                'defender': game.player2.username,  
+                'attacker_card': game.player1_choice,  
+                'defender_card': game.player2_choice,  
+                'result': result,  
+                'status': status,
+            }
+        }
+        return render(request, 'game/game_detail.html', context=result_data) 
+    return HttpResponseBadRequest("잘못된 요청입니다.")

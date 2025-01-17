@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
-<div class="result-container">
-    <div class="result-card">
-        <h2>{{ match.number }} - {{ match.attacker }} VS {{ match.defender }}</h2>
-        <p>숫자가 작은 사람이 이깁니다.</p>
-        <p>{{ match.attacker }}: {{ match.attacker_card }}</p>
-        <p>{{ match.defender }}: {{ match.defender_card }}</p>
-        <p>결과: {{ match.result }}</p>
-        <p>점수: {{ match.score }}</p>
-        <button onclick="window.location.href='{% url 'game:history' %}'">전적목록</button>
-    </div>
+<div class="game_container">
+    <form action="{% if game %}{% url 'game:attack' game.pk %}{% else %}# {% endif %}" method="post">
+        {% csrf_token %}
+        <h3>반격할 카드: </h3>
+        <div class="card-options">
+            {% for card in cards %}
+                <label>
+                    <input type="radio" name="card" value="{{ card }}" {% if forloop.first %}checked{% endif %}>
+                    {{ card }}
+                </label>
+            {% endfor %}
+        </div>
+        <button type="submit" class="counter">CounterAttack!</button>
+    </form>
 </div>
 {% endblock %}

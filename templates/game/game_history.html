@@ -6,29 +6,28 @@
     <main>
         <section>
             <h2>History List</h2>
-            <p>현재 플레이어: {{ current_user }}</p>
+            <p>현재 플레이어: {{ user.username }}</p>
             <hr>
             <ul class="history-list">
-                {% for record in history %}
+                {% for game in games %}
                     <li>
-                        <span class="match-number">{{ record.number }}</span>
-                        <span class="match-details">{{ record.card }} - {{ record.attacker }} VS {{ record.defender }}</span>
+                        <span class="match-details">{{ forloop.counter }} - {{ game.player1.username }} VS {{ game.player2.username }}</span>
                         <span class="match-result">
-                            {% if record.result == 'win' %}
+                            {% if game.status == 'completed' and game.winner == current_user %}
                                 결과: 🏆 승리 🏆
-                            {% elif record.result == 'lose' %}
+                            {% elif game.status == 'completed' and game.winner != current_user %}
                                 결과: 😢 패배 😢
-                            {% else %}
-                                진행 중... <button>게임취소</button>
+                            {% elif game.status == 'pending' and game.player1.username == user.username %}
+                                진행중.... <a href="{% url 'game:delete_game' game.pk %}">게임취소</a>
+                            {% elif game.status == 'pending' and game.player1.username != user.username %}
+                                복수하세요!
                             {% endif %}
                         </span>
+                        <button>게임정보</button>
                     </li>
                 {% endfor %}
             </ul>
         </section>
-        <aside>
-            <button>게임정보</button>
-        </aside>
     </main>>
 </div>
 {% endblock %}

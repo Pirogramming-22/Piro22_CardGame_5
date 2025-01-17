@@ -12,20 +12,26 @@
                 {% csrf_token %}
                 <button type="submit">게임취소</button>
             </form>
-            <button onclick="window.location.href='{% url 'game:history' %}'">전적목록</button>
+            <a href="{% url 'game:history' %}" class="mx-2">
+                <button type="button">전적목록</button>
+            </a>
         {% elif match.status == 'counterattack' %}
             <form action="{% url 'game:counterattack' match.number %}" method="post">
                 {% csrf_token %}
                 <button type="submit">대응하기</button>
             </form>
-            <button onclick="window.location.href='{% url 'game:history' %}'">전적목록</button>
+            <a href="{% url 'game:history' %}" class="mx-2">
+                <button type="button">전적목록</button>
+            </a>
         {% elif match.status == 'finished' %}
             <p>숫자가 작은 사람이 이깁니다.</p>
             <p>{{ match.attacker }}: {{ match.attacker_card }}</p>
             <p>{{ match.defender }}: {{ match.defender_card }}</p>
             <p>결과: {{ match.result }}</p>
             <p>점수: {{ match.score }}</p>
-            <button onclick="window.location.href='{% url 'game:history' %}'">전적목록</button>
+            <a href="{% url 'game:history' %}" class="mx-2">
+                <button type="button">전적목록</button>
+            </a>
         {% endif %}
     </div>
 </div>
