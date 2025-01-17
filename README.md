@@ -54,7 +54,7 @@ pip install django-environ
 
 ### 사용한 협업 툴
   📒노션<br>
-  https://www.notion.so/Piro22_CardGame_5-17dde9999953807a8fa3fcd4f8a44130?pvs=4
+  [https://www.notion.so/Piro22_CardGame_5-17dde9999953807a8fa3fcd4f8a44130?pvs=4](https://simplistic-almanac-499.notion.site/Piro22_CardGame_5-17dde9999953807a8fa3fcd4f8a44130)
 
   🎨피그마<br> 
   https://www.figma.com/design/T0daihMCqHHkf99ZpiNLrk/%ED%94%BC%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-5%EC%A1%B0?node-id=0-1&t=NII8nJSGoZOrPKCD-1
