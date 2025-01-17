@@ -45,7 +45,7 @@ def gameHistory(request): #1
     if not request.user.is_authenticated:
         return redirect('user:login')
 
-    games = Game.objects.filter(Q(player1=request.user) | Q(player2=request.user))
+    games = Game.objects.filter(Q(player1=request.user) | Q(player2=request.user)).order_by('-created_at')
     user = request.user
     ctx = {
         'games': games,
@@ -192,15 +192,18 @@ def before_detail(request, pk):
     game.player1.save()
     game.player2.save()
 
+    player1_score = int(game.player1_choice)
+    player2_score = int(game.player2_choice)
+
     if game.player1 == request.user:
         return render(request, 'game/game_detail.html', {
             'match': game,
-            'point': int(game.player1_choice),
+            'point': player1_score,
         })
     elif game.player2 == request.user:
         return render(request, 'game/game_detail.html', {
             'match': game,
-            'point': int(game.player2_choice),
+            'point': -player2_score,
         })
     else:
         return render(request, 'game/game_detail.html', {
