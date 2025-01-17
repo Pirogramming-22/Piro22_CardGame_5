@@ -161,7 +161,6 @@ def counterattack_view(request, pk): #카드 선택 -> 디테일로로
 
 from django.http import HttpResponseBadRequest
 
-
 def before_detail(request, pk):
     if not request.user.is_authenticated:
         return redirect('user:login')
@@ -179,20 +178,32 @@ def before_detail(request, pk):
     game.save()
     game.determine_winner()
 
+    point = abs(game.player1_choice - game.player2_choice)
 
     if game.winner == game.player1:
-        point = game.player1_choice - game.player2_choice
         game.player1.point += point
         game.player2.point -= point
     elif game.winner == game.player2:
-        point = game.player2_choice - game.player1_choice
         game.player2.point += point
         game.player1.point -= point
     else:
-        point = 0
+        pass
 
     game.player1.save()
     game.player2.save()
 
-    
-
+    if game.player1 == request.user:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': int(game.player1_choice),
+        })
+    elif game.player2 == request.user:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': int(game.player2_choice),
+        })
+    else:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': 0,
+        })

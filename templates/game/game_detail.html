@@ -39,7 +39,13 @@
             {% endif %}
         
             <hr>
+            {% if match.status == 'completed' and match.winner == user %}
             <p>점수: {{ point }}</p>
+            {% elif match.status == 'completed' and match.winner == None %}
+            <p>점수: {{ point }}</p>
+            {% elif match.status == 'completed' and match.winner != user%}
+            <p>점수: -{{ point }}</p>
+            {% endif %}
             <a href="{% url 'game:gameHistory' %}" class="mx-2">
                 <button type="button" class="game_history">전적목록</button>
             </a>
