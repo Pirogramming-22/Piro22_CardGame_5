@@ -1,6 +1,11 @@
 # 🖐️Piro22_CardGame_5🖐️
 
-
+# 0. 📜의존성 목록 정리
+```
+pip install django
+pip install social-auth-app-django
+pip install django-environ
+```
 
 ## 1. 컨벤션
 
@@ -32,13 +37,6 @@
 |---------------------|------------------|
 | `main`              | 메인 브랜치      |
 | `member's name`     | 담당 부분별 분업화 |
-
-### 📜의존성 목록 정리
-```
-pip install django
-pip install social-auth-app-django
-pip install django-environ
-```
 
 
 ## 2. 협업을 위한 업무분장
