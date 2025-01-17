@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
 <div class="game_container">
     <form action="{% if game %}{% url 'game:attack' game.pk %}{% else %}# {% endif %}" method="post">

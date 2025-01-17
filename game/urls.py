@@ -6,13 +6,15 @@ from .views import dashboard_view
 app_name = 'game'
 
 urlpatterns = [
-    path('game/history/' , views.game_history_view, name="game_history_view"),
-    path('game/delete/<int:pk>/', views.delete_game, name='delete_game'),
-    path('game/rankingTop3/' , views.gameRankingTop3 , name="gameRankingTop3"),
-    path('game/ranking/' , views.gameRanking , name="gameRanking"),
-    path('dashboard/', dashboard_view, name='dashboard'),
+    # 영호
+    path('game/history/' , views.gameHistory , name="gameHistory"), #1
+    path('game/delete/<int:pk>/', views.delete_game, name='delete_game'), #2
+    path('game/rankingTop3/' , views.gameRankingTop3 , name="gameRankingTop3"), #3
+    path('dashboard/', dashboard_view, name='dashboard'), #4
+    path('', views.base, name='base'),
+
+    # 혜린
     path('game/start/', views.game_start_view, name='game_start_view'),
     path('game/attack/<int:pk>/', views.attack, name='attack'),
-    path('', views.base, name='base'),
     path('game/counterattack/<int:pk>/', views.counterattack, name="counterattack")
 ]

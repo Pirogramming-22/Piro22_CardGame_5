@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<!-- 완전 프로토 타입 테스트용입니다. 언제든 삭제하셔도 무방해요! -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Top 3</h1>
+    <ul >
+        {% for user in top3_users %}
+            <li>{{ user.username }} - {{ user.point }}</li>
+            <div class="bar" style="width: {% widthratio user.point 1 20 %}px;"></div> <!-- 이부분 아마 css로 빼려면 js로 써야할 것 같습니다!! -->
+
+            <style>
+                .bar {
+                    height: 20px;
+                    background-color: blue;
+                }
+            </style>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'game:dashboard' %}">Dashboard</a>
+</body>
+</html>

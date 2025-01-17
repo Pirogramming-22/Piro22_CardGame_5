@@ -30,4 +30,3 @@ class Game(models.Model):
                 self.winner = None  # 무승부
             self.status = 'completed'
             self.save()
-

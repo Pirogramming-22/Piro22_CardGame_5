@@ -37,10 +37,44 @@ def gameRanking(request):
     }
     return render(request, 'game/Game-Ranking.html', context=ctx)
 
-def base(request):
-    return render(request, 'main.html')
+import random
+from user.models import CustomUser
+from django.http import HttpResponseBadRequest
+from django.contrib.auth import get_user_model
 
-def dashboard_view(request):
+# Create your views here.
+
+def gameHistory(request): #1
+    if not request.user.is_authenticated:
+        return redirect('user:login')
+
+    games = Game.objects.filter(Q(player1=request.user) | Q(player2=request.user))
+    user = request.user
+    ctx = {
+        'games': games,
+        'user': user,
+    }
+    return render(request, 'game/game-history.html', context=ctx)
+
+
+def delete_game(request, pk): #2
+    game = Game.objects.get(id=pk)
+    game.delete()
+    return redirect('game:gameHistory')
+
+def gameRankingTop3(request): #3
+    if not request.user.is_authenticated:
+        return redirect('user:login')
+    User = get_user_model()  # 커스터마이즈된 유저 모델 호환
+    users = User.objects.all()
+    top3_users = users.order_by('-point')[:3]
+
+    ctx = {
+        'top3_users': top3_users,
+    }
+    return render(request, 'game/Game-Ranking-Top3.html', context=ctx)
+
+def dashboard_view(request): #4
     user = request.user  # 현재 로그인한 사용자
     username = user.username  # OAuth 연결 여부와 상관없이 사용자 이름을 사용
     return render(request, 'game/dashboard.html', {'username': username})
@@ -78,6 +112,7 @@ def attack(request):
         selected_card = int(selected_card)  
 
         defender_id = int(request.POST.get('defender'))  
+
         defender = CustomUser.objects.get(pk=defender_id)
 
         if game.player1 == request.user:

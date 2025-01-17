@@ -58,6 +58,7 @@
         width: 60dvh;
         margin: 100px auto;
         border-radius: 15px;
+
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -80,6 +81,7 @@
         margin-top: 20px;
         display: inline-block;
         padding: 10px 50px;
+
         border: none;
         border-radius: 5px;
         color: black;
@@ -97,14 +99,15 @@
         <div>
             <a href="/"><h1>Piro Card Game</h1></a>
         </div>
-        <div class="main_nav">
-            <a href="{% url 'user:login'%}" class="mx-2">
-                <button type="button" class="btn btn-info">로그인</button>
-            </a>
-            <a href="{% url 'user:signup'%}" class="mx-2">
-                <button type="button" class="btn btn-warning">회원가입</button>
-            </a>
-        </div>
+        <ul>
+            {% if user.is_authenticated %}
+            <a href="{% url 'game:dashboard' %}">Dashboard</a>
+            <a href="{% url 'user:logout' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'user:login' %}">Login</a>
+            <a href="{% url 'user:signup' %}">Sign Up</a>
+            {% endif %}
+        </ul>
     </nav>
   </main>
   <section>
@@ -112,5 +115,6 @@
     <button type="button" class="login_btn_start">Start</button>
   </section>
   <script src="{% static 'game/main.js' %}"></script>
+
 </body>
 </html>
