@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>내가 고른 카드: </title>
+{% endblock %}
+
+{% block content %}
+<div class="game_container">
+    <form action="{% if game %}{% url 'game:attack' game.pk %}{% else %}# {% endif %}" method="post">
+        {% csrf_token %}
+        <div class="card-options">
+            {% for card in cards %}
+                <label>
+                    <input type="radio" name="card" value="{{ card }}" {% if forloop.first %}checked{% endif %}>
+                    {{ card }}
+                </label>
+            {% endfor %}
+        </div>
+        <label for="defender">Defender:</label>
+        <select id="defender" name="defender">
+            {% for user in defenders %}
+                <option value="" selected disabled>--------------</option>
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="attack">Attack!</button>
+    </form>
+</div>
+{% endblock %}
