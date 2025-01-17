@@ -7,6 +7,7 @@ from user.models import CustomUser
 from django.http import HttpResponseBadRequest
 from django.contrib.auth import get_user_model
 
+import logging
 
 # Create your views here.
 
@@ -108,11 +109,23 @@ def create_game(request):
         return redirect('game:gameHistory')
     return HttpResponseBadRequest("잘못된 요청입니다.")
 
-def game_detail(request, pk): #8
-    game = Game.objects.get(id=pk)
-    return render(request, 'game/game_detail.html', {'match': game})
+def game_detail(request, pk):
+    game = get_object_or_404(Game, pk=pk)
+
+    point = None
+    if game.status == 'completed':
+        if game.winner == game.player1:
+            point = game.player1_choice - game.player2_choice
+        elif game.winner == game.player2:
+            point = game.player2_choice - game.player1_choice
+
+    return render(request, 'game/game_detail.html', {
+        'match': game,
+        'point': point,
+    })
 
 def go_counterattack(request, pk): #히스토리에서 -> 카운터 어택으로
+    logging.debug("Hello")
     if not request.user.is_authenticated:
         return redirect('user:login')
     game = get_object_or_404(Game, pk=pk)
@@ -146,39 +159,28 @@ def counterattack_view(request, pk): #카드 선택 -> 디테일로로
         return render(request, 'game/counter_attack.html', counterattack)
    return HttpResponseBadRequest("잘못된 요청입니다.")
 
+from django.http import HttpResponseBadRequest
+
 def before_detail(request, pk):
     if not request.user.is_authenticated:
         return redirect('user:login')
-   
-    game = Game.objects.get(id = pk)
-    game.player2_choice =  int(request.POST.get('card'))
+
+    if request.method != 'POST':
+        return HttpResponseBadRequest("잘못된 요청입니다.")
+
+    card = request.POST.get('card')
+    if card is None:
+        return HttpResponseBadRequest("카드 데이터가 없습니다.")
+
+    game = get_object_or_404(Game, pk=pk)
+    game.player2_choice = int(card)
     game.status = 'completed'
     game.save()
     game.determine_winner()
-    if game.winner == game.player1:
-        loser_id = game.player2
-        loser = CustomUser.objects.get(id=loser_id)
-        winner_id = game.player1
-        winner = CustomUser.objects.get(id=winner_id)
-        point = game.player1_choice - game.player2_choice
-        loser.point -= point
-        winner.point -= point
-        game.save()
-        loser.save()
-        winner.save()
-        return render(request, 'game/game_detail.html', {'match':game, 'point':str(point)})
-    else:
-        loser_id = game.player1
-        loser = CustomUser.objects.get(id=loser_id)
-        winner_id = game.player2
-        winner = CustomUser.objects.get(id=winner_id)
-        point = game.player2_choice - game.player1_choice
-        loser.point -= point
-        winner.point -= point
-        game.save()
-        loser.save()
-        winner.save()
-        return render(request, 'game/game_detail.html', {'match':game, 'point':str(point)})
 
-    
+    point = abs(game.player1_choice - game.player2_choice)
 
+    return render(request, 'game/game_detail.html', {
+        'match': game,
+        'point': point,
+    })

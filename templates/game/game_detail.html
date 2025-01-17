@@ -29,11 +29,12 @@
             <p>숫자가 작은 사람이 이깁니다.</p>
             <p>{{ match.player1.username }}: {{ match.player1_choice }}</p>
             <p>{{ match.player2.username }}: {{ match.player2_choice }}</p>
-            {% if match.status == 'completed' and match.winner == current_user %}
-                <p>결과: 🏆 승리 🏆</p>
-            {% elif match.status == 'completed' and match.winner != current_user %}
-                <p>결과: 😢 패배 😢</p>
+            {% if match.status == 'completed' and match.winner == user %}
+            <p>결과: 🏆 승리 🏆</p>
+            {% elif match.status == 'completed' and match.winner != user %}
+            <p>결과: 😢 패배 😢</p>
             {% endif %}
+        
             <hr>
             <p>점수: {{ point }}</p>
             <a href="{% url 'game:gameHistory' %}" class="mx-2">

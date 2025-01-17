@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="game_container">
-    <form action="{% url 'game:game_detail' pk=pk %}" method="POST">
+    <form action="{% url 'game:before_detail' pk=pk %}" method="POST">
         {% csrf_token %}
         <h3>반격할 카드: </h3>
         <div class="card-options">
@@ -17,5 +17,6 @@
         </div>
         <button type="submit" class="counter">CounterAttack!</button>
     </form>
+    
 </div>
 {% endblock %}
