@@ -89,6 +89,10 @@
         flex-direction: column;
         align-items: flex-start; 
     }
+    .google-login-btn {
+        margin-top: 20px;
+        color: rgb(216, 120, 2);
+    }
 
   </style>
 </head>
@@ -101,7 +105,9 @@
         <button type="submit" class="signup-btn">회원가입</button>
     </form>
     <p class="login-link">이미 계정이 있으신가요? <a href="{% url 'user:login'%}">로그인</a></p>
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="google-login-btn">
+        Google 계정으로 로그인하기
+    </a>
   </div>
 </body>
 </html>
-

@@ -1,4 +1,3 @@
-
 function generateRanking() {
     const userDataElements = document.querySelectorAll("#user-data li");
     const users = Array.from(userDataElements).map(el => ({
@@ -19,17 +18,17 @@ function generateRanking() {
         bar.className = `bar bar${index + 1}`;
         const barHeight = Math.max((user.points / maxPoints) * 100, 0); 
         bar.style.height = `${barHeight}%`;
-        bar.innerHTML = `${user.username}<br>${user.points}`;
 
-        
+        // 막대 안에 순위만 표시
+        bar.innerHTML = `${index + 1}위`; // 이름과 점수 없이 순위만
+
         barContainer.appendChild(bar);
 
-        // 랭킹 리스트 생성
+        // 랭킹 리스트 생성 (이 부분에서 이름과 점수를 표시)
         const rank = document.createElement("p");
         rank.textContent = `${index + 1}위: ${user.username} (${user.points}점)`;
         rankingList.appendChild(rank);
     });
 }
-
 
 generateRanking();

@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="game_container">
-    <form action="{% if game %}{% url 'game:attack' game.pk %}{% else %}# {% endif %}" method="post">
+    <form action="{%url 'game:create_game'%}" method="post">
         {% csrf_token %}
         <h3>내가 고른 카드: </h3>
         <div class="card-options">

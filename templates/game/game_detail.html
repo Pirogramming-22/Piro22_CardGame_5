@@ -2,18 +2,18 @@
 {% load static %}
 
 {%block content%}
-<div class="game-container">
+<div class="game_container">
     <div class="game-card">
-        <h2>{{ match.number }} - {{ match.attacker }} VS {{ match.defender }}</h2>
+        <h2>{{ match.number }} - {{ match.player1.username }} VS {{ match.player2.username }}</h2>
         <hr>
-        {% if match.status == 'in_progress' %}
+        {% if match.status == 'pending' %}
             <p>진행중...</p>
             <p>나: {{ match.card }}</p>
-            <form action="{% url 'game:cancel_game' match.number %}" method="post">
+            <form action="{% url 'game:delete_game' match.pk %}" method="post">
                 {% csrf_token %}
                 <button class="counter" type="submit">게임취소</button>
             </form>
-            <a href="{% url 'game:history' %}" class="mx-2">
+            <a href="{% url 'game:gameHistory' %}" class="mx-2">
                 <button type="button" class="game_history">전적목록</button>
             </a>
         {% elif match.status == 'counterattack' %}
@@ -21,10 +21,10 @@
                 {% csrf_token %}
                 <button class="counter" type="submit">대응하기</button>
             </form>
-            <a href="{% url 'game:history' %}" class="mx-2">
+            <a href="{% url 'game:gameHistory' %}" class="mx-2">
                 <button type="button" class="game_history">전적목록</button>
             </a>
-        {% elif match.status == 'finished' %}
+        {% elif match.status == 'completed' %}
             <p>숫자가 작은 사람이 이깁니다.</p>
             <hr>
             <p>{{ match.attacker }}: {{ match.attacker_card }}</p>
@@ -33,7 +33,7 @@
             <p>결과: {{ match.result }}</p>
             <hr>
             <p>점수: {{ match.score }}</p>
-            <a href="{% url 'game:history' %}" class="mx-2">
+            <a href="{% url 'game:gameHistory' %}" class="mx-2">
                 <button type="button" class="game_history">전적목록</button>
             </a>
         {% endif %}
