@@ -243,15 +243,9 @@ def please(request, pk): #조회용 함수
     else :
         pass
 
-    if game.player1 == request.user:
-        return render(request, 'game/game_detail.html', {
-            'match': game,
-            'point': player1_score,
-        })
-    elif game.player2 == request.user:
-        return render(request, 'game/game_detail.html', {
-            'match': game,
+
             'point': player2_score,
+
         })
     else:
         return render(request, 'game/game_detail.html', {
