@@ -54,8 +54,6 @@ def game_start_view(request): #6
     if not request.user.is_authenticated:
         return redirect('user:login')
     game = Game.objects.first()
-    if not game:
-        game = None
     cards = random.sample(range(1, 11), 5)
     defenders = CustomUser.objects.exclude(id=request.user.id)
 

@@ -164,6 +164,7 @@ button {
     cursor: pointer;
     background-color: var(--start);
 }
+
 .dashboard_list {
     display: inline-block;
     padding: 10px 25px;
@@ -222,6 +223,9 @@ button {
     height: 7%;
     background-color: var(--login);
     border-radius: 5px;
+}
+.game_ranking_btn:hover {
+    background-color: #eea804;
 }
 .game_ranking_btn a {
     text-align: center;
