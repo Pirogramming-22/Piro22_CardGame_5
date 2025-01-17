@@ -39,7 +39,7 @@ def gameRanking(request):
     if not request.user.is_authenticated:
         return redirect('user:login')
 
-    User = settings.AUTH_USER_MODEL  # 커스터마이즈된 유저 모델 호환
+    User = get_user_model()  # 커스터마이즈된 유저 모델 호환
     users = User.objects.all()
     ctx = {
         'users': users,
