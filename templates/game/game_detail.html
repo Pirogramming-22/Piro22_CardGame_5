@@ -5,7 +5,7 @@
 <div class="game_container">
     <div class="game-card">
         <h2>{{ match.player1.username }} VS {{ match.player2.username }}</h2>
-        {% if match.status == 'pending' %}
+        {% if match.status == 'pending' and match.player1.username == user.username %}
             <p>진행중...</p>
             <p>나: {{ match.player1_choice }}</p>
 
@@ -17,7 +17,7 @@
 
                 <button type="button" class="game_history">전적목록</button>
             </a>
-        {% elif match.status == 'pending' and game.player1.username != user.username%}
+        {% elif match.status == 'pending' and match.player1.username != user.username %}
             <form action="{% url 'game:counterattack' match.pk %}" method="post">
                 {% csrf_token %}
                 <button class="counter" type="submit">대응하기</button>
