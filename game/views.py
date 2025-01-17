@@ -35,16 +35,6 @@ def gameRankingTop3(request):
     }
     return render(request, 'game/Game-Ranking-Top3.html', context=ctx)
 
-def gameRanking(request):
-    if not request.user.is_authenticated:
-        return redirect('user:login')
-
-    User = get_user_model()  # 커스터마이즈된 유저 모델 호환
-    users = User.objects.all()
-    ctx = {
-        'users': users,
-    }
-    return render(request, 'game/Game-Ranking.html', context=ctx)
 
 def base(request):
     return render(request, 'main.html')
