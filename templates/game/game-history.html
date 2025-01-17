@@ -23,11 +23,13 @@
                                 복수하세요!
                             {% endif %}
                         </span>
-                        <button>게임정보</button>
+                        <a href="{% url 'game:game_detail' game.pk %}">
+                            게임정보
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
         </section>
-    </main>>
+    </main>
 </div>
 {% endblock %}

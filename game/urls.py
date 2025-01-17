@@ -13,7 +13,10 @@ urlpatterns = [
     path('dashboard/', dashboard_view, name='dashboard'), #4
     path('', views.base, name='base'),#5
     # 혜린
-    path('game/start/', views.game_start_view, name='game_start_view'), #6
-    path('game/attack/<int:pk>/', views.attack, name='attack'), #7
     path('game/detail/<int:pk>/', views.game_detail, name='game_detail'), #8
+    path('game/start/', views.game_start_view, name='game_start_view'),
+    path('game/attack/', views.attack, name='attack'),
+    path('game/create/', views.create_game, name='create_game'),
+    path('game/counterattack/<int:pk>/', views.counterattack, name="counterattack")
+
 ]
