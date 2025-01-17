@@ -16,7 +16,7 @@ def gameHistory(request):
         'games': games,
         'user': user,
     }
-    return render(request, 'game/Game-History.html', context=ctx)
+    return render(request, 'game/game-history.html', context=ctx)
 
 def delete_game(request, pk):
     game = Game.objects.get(id=pk)
