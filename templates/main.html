@@ -116,6 +116,11 @@
         cursor: pointer;
         background-color: var(--start);
     }
+    .dashboard_username {
+        font-size: 1.3rem;
+        color: black;
+        font-weight: normal;
+    }
   </style>
 </head>
 <body>
@@ -161,9 +166,10 @@
     </p>
     <!--start 버튼 클릭 시 수정-->
     {% if user.is_authenticated %}
+    <p class="dashboard_username">{{ user.username }}님이 로그인 중</p>
     <a href="{% url 'game:game_start_view' %}"><button type="button" class="login_btn_start">Start</button></a>
     {% else %}
-    <a href="{% url 'game:game_start_view' %}"><button type="button" class="login_btn_start">Start</button></a>
+    <a href="{% url 'user:login' %}"><button type="button" class="login_btn_start">Start</button></a>
     {% endif %}
   </section>
  
