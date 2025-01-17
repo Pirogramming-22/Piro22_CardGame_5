@@ -172,8 +172,10 @@ def before_detail(request, pk):
     game.save()
     loser.save()
     winner.save()
+    user = request.user
+    point = user.point
 
-    return render(request, 'game/game_detail.html', {'match': game, 'point': point})
+    return render(request, 'game/game_detail.html', {'match': game, 'point': point })
 
 
 
