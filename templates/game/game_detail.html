@@ -5,7 +5,11 @@
 <div class="game_container">
     <div class="game-card">
         <h2>{{ match.player1.username }} VS {{ match.player2.username }}</h2>
+<<<<<<< HEAD
         {% if match.status == 'pending' and match.player1.username == user.username %}
+=======
+        {% if match.status == 'pending' and game.player1.username == user.username %}
+>>>>>>> dao
             <p>진행중...</p>
             <p>나: {{ match.player1_choice }}</p>
 
@@ -29,11 +33,12 @@
             <p>숫자가 작은 사람이 이깁니다.</p>
             <p>{{ match.player1.username }}: {{ match.player1_choice }}</p>
             <p>{{ match.player2.username }}: {{ match.player2_choice }}</p>
-            {% if match.status == 'completed' and match.winner == current_user %}
-                <p>결과: 🏆 승리 🏆</p>
-            {% elif match.status == 'completed' and match.winner != current_user %}
-                <p>결과: 😢 패배 😢</p>
+            {% if match.status == 'completed' and match.winner == user %}
+            <p>결과: 🏆 승리 🏆</p>
+            {% elif match.status == 'completed' and match.winner != user %}
+            <p>결과: 😢 패배 😢</p>
             {% endif %}
+        
             <hr>
             <p>점수: {{ point }}</p>
             <a href="{% url 'game:gameHistory' %}" class="mx-2">
