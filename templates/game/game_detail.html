@@ -5,11 +5,7 @@
 <div class="game_container">
     <div class="game-card">
         <h2>{{ match.player1.username }} VS {{ match.player2.username }}</h2>
-<<<<<<< HEAD
-        {% if match.status == 'pending' and match.player1.username == user.username %}
-=======
         {% if match.status == 'pending' and game.player1.username == user.username %}
->>>>>>> dao
             <p>진행중...</p>
             <p>나: {{ match.player1_choice }}</p>
 
