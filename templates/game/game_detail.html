@@ -32,6 +32,8 @@
             <p>{{ match.player2.username }}: {{ match.player2_choice }}</p>
             {% if match.status == 'completed' and match.winner == user %}
             <p>결과: 🏆 승리 🏆</p>
+            {% elif match.status == 'completed' and match.winner == None %}
+            <p>결과: 무승부</p>
             {% elif match.status == 'completed' and match.winner != user %}
             <p>결과: 😢 패배 😢</p>
             {% endif %}
