@@ -114,12 +114,18 @@ def game_detail(request, pk): #8
     game = Game.objects.get(id=pk)
     return render(request, 'game/game_detail.html', {'game': game})
 
-def go_counterattack(request, pk): #히스토리에서 -> 카운터 어택으로로
+def go_counterattack(request, pk): #히스토리에서 -> 카운터 어택으로
     if not request.user.is_authenticated:
-        return redirect('user:login')   
-    
-    game = Game.objects.get(id=pk)
-    return render(request, 'game/counter_attack.html', {'game':game})
+        return redirect('user:login')
+    game = get_object_or_404(Game, pk=pk)
+    cards = random.sample(range(1, 11), 5)
+
+    ctx = {
+        'cards': cards,  
+        'game': game,  
+        'pk': pk,
+    }
+    return render(request, 'game/counter_attack.html', context=ctx)
 
 def counterattack_view(request, pk): #카드 선택 -> 디테일로로
    if not request.user.is_authenticated:

@@ -14,7 +14,7 @@
                 </label>
             {% endfor %}
         </div>
-        <a method="post">
+        <a href="{% url 'game:game_detail' pk=pk %}" method="POST">
             <button type="submit" class="counter">CounterAttack!</button>
         </a>
 </div>
