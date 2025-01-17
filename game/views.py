@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 
-def gameHistory(request):
+def gameHistory(request): #1
     if not request.user.is_authenticated:
         return redirect('user:login')
 
@@ -23,12 +23,12 @@ def gameHistory(request):
     return render(request, 'game/game-history.html', context=ctx)
 
 
-def delete_game(request, pk):
+def delete_game(request, pk): #2
     game = Game.objects.get(id=pk)
     game.delete()
     return redirect('game:gameHistory')
 
-def gameRankingTop3(request):
+def gameRankingTop3(request): #3
     if not request.user.is_authenticated:
         return redirect('user:login')
     User = get_user_model()  # 커스터마이즈된 유저 모델 호환
@@ -40,16 +40,17 @@ def gameRankingTop3(request):
     }
     return render(request, 'game/Game-Ranking-Top3.html', context=ctx)
 
-def base(request):
-    return render(request, 'main.html')
-
-
-def dashboard_view(request):
+def dashboard_view(request): #4
     user = request.user  # 현재 로그인한 사용자
     username = user.username  # OAuth 연결 여부와 상관없이 사용자 이름을 사용
     return render(request, 'game/dashboard.html', {'username': username})
 
-def game_start_view(request):
+def base(request): #5
+    return render(request, 'main.html')
+
+
+
+def game_start_view(request): #6
     if not request.user.is_authenticated:
         return redirect('user:login')
     game = Game.objects.first()
@@ -65,13 +66,7 @@ def game_start_view(request):
     }
     return render(request, 'game/game_start.html', context=ctx)
 
-def game_history_view(request):
-    if not request.user.is_authenticated:
-        return redirect('user:login')
-
-    return render(request, 'game_history.html')
-
-def attack(request, game_pk):
+def attack(request, game_pk): #7
     if not request.user.is_authenticated:
         return redirect('user:login')
     game = Game.objects.get(pk=game_pk)

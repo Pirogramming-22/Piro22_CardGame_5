@@ -8,7 +8,7 @@
             <h1 class="dashboard_title">Piro Game</h1>
             <p class="dashboard_username">{{ user.username }}님이 로그인 중</h>
             <div class="dashboard_button">
-                <a href="" class="dashboard_start">Start </a>
+                <a href="{% url 'game:game_start_view' %}" class="dashboard_start">Start </a>
                 <a href="{% url 'game:gameHistory' %}" class="dashboard_list">List </a>
             </div>
         </div>
