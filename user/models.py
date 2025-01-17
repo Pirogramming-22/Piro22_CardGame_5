@@ -28,6 +28,7 @@ class CustomUser(AbstractBaseUser):
     username = models.CharField(max_length=40, unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    point = models.IntegerField(default=0)
 
     objects = CustomUserManager()
 

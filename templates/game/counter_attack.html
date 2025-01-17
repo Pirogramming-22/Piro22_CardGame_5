@@ -4,9 +4,9 @@
 
 {% block content %}
 <div class="game_container">
-    <form action="{%url 'game:create_game'%}" method="post">
+    <form action="{% url 'game:before_detail' pk=pk %}" method="POST">
         {% csrf_token %}
-        <h3>내가 고른 카드: </h3>
+        <h3>반격할 카드: </h3>
         <div class="card-options">
             {% for card in cards %}
                 <label>
@@ -15,13 +15,7 @@
                 </label>
             {% endfor %}
         </div>
-        <label for="defender">Defender:</label>
-        <select id="defender" name="defender">
-            {% for user in defenders %}
-                <option value="{{ user.id }}">{{ user.username }}</option>
-            {% endfor %}
-        </select>
-            <button type="submit" class="create">Attack!</button>
+        <button type="submit" class="counter">CounterAttack!</button>
     </form>
 </div>
 {% endblock %}
