@@ -17,7 +17,7 @@
 
                 <button type="button" class="game_history">전적목록</button>
             </a>
-        {% elif match.status == 'pending' and game.player1.username != user.username%}
+        {% elif match.status == 'pending' and match.player1.username != user.username %}
             <form action="{% url 'game:counterattack' match.pk %}" method="post">
                 {% csrf_token %}
                 <button class="counter" type="submit">대응하기</button>
