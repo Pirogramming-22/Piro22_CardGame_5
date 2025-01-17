@@ -86,6 +86,10 @@
         cursor: pointer;
         background-color: var(--start);
     }
+    .login_btn_start a {
+        text-decoration: none;
+        color: black;
+    }
 
   </style>
 </head>
@@ -108,9 +112,13 @@
   </main>
   <section>
     <p>Piro Game</p>
-    <button type="button" class="login_btn_start">Start</button>
+    <!--start 버튼 클릭 시 수정-->
+    {% if user.is_authenticated %}
+    <button type="button" class="login_btn_start"> <a href="{% url 'game:game_start_view' %}">Start</a></button>
+    {% else %}
+    <button type="button" class="login_btn_start"> <a href="{% url 'user:login' %}">Start</a></button>
+    {% endif %}
   </section>
-  <script src="{% static 'game/main.js' %}"></script>
-
+ 
 </body>
 </html>
