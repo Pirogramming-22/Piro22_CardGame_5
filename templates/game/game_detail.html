@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block content%}
+<div class="game_container">
+    <div class="game-card">
+        <h2>{{ match.player1.username }} VS {{ match.player2.username }}</h2>
+        {% if match.status == 'pending' and match.player1.username == user.username %}
+
+            <p>진행중...</p>
+            <p>나: {{ match.player1_choice }}</p>
+
+            <form action="{% url 'game:delete_game' match.pk %}" method="post">
+                {% csrf_token %}
+                <button class="counter" type="submit">게임취소</button>
+            </form>
+            <a href="{% url 'game:gameHistory' %}" class="mx-2">
+
+                <button type="button" class="game_history">전적목록</button>
+            </a>
+        {% elif match.status == 'pending' and match.player1.username != user.username %}
+            <form action="{% url 'game:counterattack' match.pk %}" method="post">
+                {% csrf_token %}
+                <button class="counter" type="submit">대응하기</button>
+            </form>
+            <a href="{% url 'game:gameHistory' %}" class="mx-2">
+                <button type="button" class="game_history">전적목록</button>
+            </a>
+        {% elif match.status == 'completed' %}
+            <p>숫자가 작은 사람이 이깁니다.</p>
+            <p>{{ match.player1.username }}: {{ match.player1_choice }}</p>
+            <p>{{ match.player2.username }}: {{ match.player2_choice }}</p>
+            {% if match.status == 'completed' and match.winner == user %}
+            <p>결과: 🏆 승리 🏆</p>
+            {% elif match.status == 'completed' and match.winner == None %}
+            <p>결과: 무승부</p>
+            {% elif match.status == 'completed' and match.winner != user %}
+            <p>결과: 😢 패배 😢</p>
+            {% endif %}
+        
+            <hr>
+            <p>점수: {{ point }}</p>
+            <a href="{% url 'game:gameHistory' %}" class="mx-2">
+                <button type="button" class="game_history">전적목록</button>
+            </a>
+        {% endif %}
+    </div>
+</div>
+{%endblock%}

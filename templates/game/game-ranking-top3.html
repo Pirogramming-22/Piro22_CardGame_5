@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="ranking_container">
+    <div id="bar-container" class="bar-container">
+   
+    </div>
+    
+    <div id="ranking-list" class="ranking">
+        <!-- 랭킹 리스트가 동적으로 추가될 위치 -->
+    </div>
+    
+    <!-- 사용자 데이터를 HTML에 숨겨둠 -->
+    <ul id="user-data" style="display: none;">
+        {% for user in top3_users %}
+        <li data-username="{{ user.username }}" data-points="{{ user.point }}"></li>
+        {% endfor %}
+    </ul>
+    
+    <button class="game_ranking_btn">
+        <a href="{% url 'game:gameHistory' %}">List</a>
+    </button>
+</div>
+
+
+{% load static %}
+<script src="{% static 'game/game-ranking-top3.js' %}"></script>
+{% endblock %}

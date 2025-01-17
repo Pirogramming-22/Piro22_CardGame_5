@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="history-container">
+    <main>
+        <section>
+            <h2>History List</h2>
+            <p>현재 플레이어: {{ user.username }}</p>
+            <hr>
+            <ul class="history-list">
+                {% for game in games %}
+                    <li>
+                        <span class="match-details">{{ forloop.counter }} - {{ game.player1.username }} VS {{ game.player2.username }}</span>
+                        <span class="match-result">
+                            {% if game.status == 'completed' and game.winner == user %}
+                            <button type="button" class="game-result">결과: 🏆 승리 🏆</button>
+                            {% elif game.status == 'completed' and game.winner != user %}
+                            <button type="button" class="game-result">결과: 😢 패배 😢</button>
+                            {% elif game.status == 'pending' and game.player1.username == user.username %}
+                                <button type="button" class="game-ing">진행중.... <a class="cancel" href="{% url 'game:delete_game' game.pk %}">게임취소</a></button>
+                            {% elif game.status == 'pending' and game.player1.username != user.username %}
+                                <form action="{% url 'game:counterattack' game.pk %}" method="post" class="mx-2">
+                                    {% csrf_token %}
+                                    <button type="submit" class="attack">Counter Attack</button>
+                                </form>
+                            {% endif %}
+                        </span>
+                        <a href="{% url 'game:game_detail' game.pk %}" class="mx-2">
+                            <button type="button" class="game_info">게임정보</button>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</div>
+{% endblock %}

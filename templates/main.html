@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{%static 'game/global.css'%}">  
+  <style>
+    /* 전체 배경 */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-size: cover;
+        background-image: url("{% static 'images/background.png' %}");
+    }
+
+    /* 네비게이션 바 */
+    nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.9);
+        padding: 0;
+        font-size: 18px;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 15px;
+    }
+
+    /* 제목 */
+    h1 {
+        font-size: 36px;
+        text-transform: uppercase;
+        color: white;
+    }
+
+    a button {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        color: black;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .main_nav {
+        display: flex;
+        gap: 50px;
+    }
+    section {
+        background-color: white;
+        width: 60dvh;
+        margin: 100px auto;
+        border-radius: 15px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 60dvh;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    section p {
+        font-weight: bold;
+        font-size: 4rem;
+        margin-bottom: 20px;
+    }
+    .login_btn_start {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+    @keyframes wave {
+
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    p span {
+        display: inline-block;
+        animation: wave 1s ease-in-out infinite;
+    }
+
+    p span:nth-child(odd) {
+        animation-delay: 0.2s;
+    }
+
+    p span:nth-child(even) {
+        animation-delay: 0.4s;
+    }
+    .login_btn_start {
+        margin-top: 20px;
+        display: inline-block;
+        padding: 10px 50px;
+
+        border: none;
+        border-radius: 5px;
+        color: black;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        background-color: var(--start);
+    }
+    .dashboard_username {
+        font-size: 1.3rem;
+        color: black;
+        font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <nav>
+        <div>
+            <a href="/"><h1>Piro Card Game</h1></a>
+        </div>
+        <ul>
+            {% if user.is_authenticated %}
+            <div class="main_nav">
+                <a href="{% url 'game:dashboard' %}">
+                    <button type="button">Dashboard</button>
+                </a>
+                <a href="{% url 'user:logout' %}">
+                    <button type="button">Logout</button>
+                </a>
+            </div>
+            {% else %}
+            <div class="main_nav">
+                <a href="{% url 'user:login' %}">
+                    <button type="button">Login</button>
+                </a>
+                <a href="{% url 'user:signup' %}">
+                    <button type="button">Sign Up</button>
+                </a>
+            </div>
+            {% endif %}
+        </ul>
+    </nav>
+  </main>
+  <section>
+    <p>
+        <span>P</span>
+        <span>i</span>
+        <span>r</span>
+        <span>o</span>
+        <span> </span>
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+    </p>
+    <!--start 버튼 클릭 시 수정-->
+    {% if user.is_authenticated %}
+    <p class="dashboard_username">{{ user.username }}님이 로그인 중</p>
+    <a href="{% url 'game:game_start_view' %}"><button type="button" class="login_btn_start">Start</button></a>
+    {% else %}
+    <a href="{% url 'user:login' %}"><button type="button" class="login_btn_start">Start</button></a>
+    {% endif %}
+  </section>
+ 
+</body>
+</html>

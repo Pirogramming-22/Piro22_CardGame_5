@@ -1,0 +1,36 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{%static 'game/style.css'%}"> 
+  <link rel="stylesheet" href="{%static 'game/global.css'%}">   
+  {%block head%}
+  {% endblock %}
+</head>
+<body>
+  <main>
+    <nav>
+    <a href="/"><h1>Piro Card Game</h1></a>
+    <a href="{% url 'game:game_start_view' %}" class="mx-2">
+      <button type="button" class="btn btn-info">Game Start</button>
+    </a>
+    <a href="{% url 'game:gameRankingTop3' %}" class="mx-2">
+      <button type="button" class="ranking">Ranking</button>
+    </a>
+    <a href="{% url 'user:logout' %}" class="mx-2">
+        <button type="button" class="btn btn-info">Logout</button>
+    </a>
+    </nav>
+    <div class="container">
+        {%block content%}
+      
+    
+        {%endblock%}
+      </div>
+  </main>
+  <script></script>
+</body>
+</html>
+
