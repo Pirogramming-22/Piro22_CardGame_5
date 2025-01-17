@@ -6,7 +6,10 @@
     <div class="game-card">
         <h2>{{ match.player1.username }} VS {{ match.player2.username }}</h2>
         {% if match.status == 'pending' and match.player1.username == user.username %}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 938884b456089110369ba9a994f4a5d3f50b2465
             <p>진행중...</p>
             <p>나: {{ match.player1_choice }}</p>
 
@@ -32,6 +35,8 @@
             <p>{{ match.player2.username }}: {{ match.player2_choice }}</p>
             {% if match.status == 'completed' and match.winner == user %}
             <p>결과: 🏆 승리 🏆</p>
+            {% elif match.status == 'completed' and match.winner == None %}
+            <p>결과: 무승부</p>
             {% elif match.status == 'completed' and match.winner != user %}
             <p>결과: 😢 패배 😢</p>
             {% endif %}

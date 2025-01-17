@@ -45,7 +45,7 @@ def gameHistory(request): #1
     if not request.user.is_authenticated:
         return redirect('user:login')
 
-    games = Game.objects.filter(Q(player1=request.user) | Q(player2=request.user))
+    games = Game.objects.filter(Q(player1=request.user) | Q(player2=request.user)).order_by('-created_at')
     user = request.user
     ctx = {
         'games': games,
@@ -204,3 +204,78 @@ def before_detail(request, pk):
             'point': point,
         })
 
+<<<<<<< HEAD
+=======
+    if game.winner == game.player1:
+        game.player1.point += point
+        game.player2.point -= point
+    elif game.winner == game.player2:
+        game.player2.point += point
+        game.player1.point -= point
+    else:
+        pass
+
+    game.player1.save()
+    game.player2.save()
+
+    if game.winner == game.player1:
+        player1_score = int(game.player1_choice)
+        player2_score = -int(game.player2_choice)
+
+    elif game.winner == game.player2:
+        player2_score = int(game.player2_choice)
+        player1_score = -int(game.player1_choice)
+
+    else :
+        pass
+
+    if game.player1 == request.user:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': player1_score,
+        })
+    elif game.player2 == request.user:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': player2_score,
+        })
+    else:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': 0,
+        })
+
+
+def please(request, pk): #조회용 함수
+    if not request.user.is_authenticated:
+        return redirect('user:login')
+
+    if request.method != 'POST':
+        return HttpResponseBadRequest("잘못된 요청입니다.")
+
+    game = get_object_or_404(Game, pk=pk)
+
+    game.player1.save()
+    game.player2.save()
+
+    if game.winner == game.player1:
+        player1_score = int(game.player1_choice)
+        player2_score = -int(game.player2_choice)
+
+    elif game.winner == game.player2:
+        player2_score = int(game.player2_choice)
+        player1_score = -int(game.player1_choice)
+
+    else :
+        pass
+
+
+            'point': player2_score,
+
+        })
+    else:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': 0,
+        })
+>>>>>>> 938884b456089110369ba9a994f4a5d3f50b2465

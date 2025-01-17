@@ -20,14 +20,16 @@
                             {% elif game.status == 'pending' and game.player1.username == user.username %}
                                 <button type="button" class="game-ing">진행중.... <a class="cancel" href="{% url 'game:delete_game' game.pk %}">게임취소</a></button>
                             {% elif game.status == 'pending' and game.player1.username != user.username %}
-                                <a href="{% url 'game:before_detail' game.pk %}" class="mx-2">
-                                    <button type="button" class="attack">Counter Attack</button>
-                                </a>
+                                <form action="{% url 'game:counterattack' game.pk %}" method="post" class="mx-2">
+                                    {% csrf_token %}
+                                    <button type="submit" class="attack">Counter Attack</button>
+                                </form>
                             {% endif %}
                         </span>
-                        <a href="{% url 'game:game_detail' game.pk %}" class="mx-2">
-                            <button type="button" class="game_info">게임정보</button>
-                        </a>
+                        <form action="{% url 'game:please' game.pk %}" method="post" class="mx-2">
+                            {% csrf_token %}
+                            <button type="submit" class="game_info">게임정보</button>
+                        </form>
                     </li>
                 {% endfor %}
             </ul>
