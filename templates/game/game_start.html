@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="game_container">
-    <form action="{% if game %}{% url 'game:attack' game.pk %}{% else %}# {% endif %}" method="post">
+    <form action="" method="post">{% comment %} 액션부분 문제있습니다! {% endcomment %}
         {% csrf_token %}
         <div class="card-options">
             {% for card in cards %}

@@ -90,3 +90,7 @@ def attack(request, game_pk): #7
         return redirect('game:gameHistory')  
 
     return HttpResponseBadRequest("잘못된 요청입니다.")
+
+def game_detail(request, game_pk): #8
+    game = Game.objects.get(pk=game_pk)
+    return render(request, 'game/game_detail.html', {'match': game})

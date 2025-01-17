@@ -13,7 +13,7 @@
   <main>
     <nav>
     <a href="/"><h1>Piro Card Game</h1></a>
-    <a href="" class="mx-2">
+    <a href="{% url 'game:game_start_view' %}" class="mx-2">
       <button type="button" class="btn btn-info">게임하기</button>
     </a>
     <a href="{% url 'game:gameRankingTop3' %}" class="mx-2">
