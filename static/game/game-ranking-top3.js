@@ -8,14 +8,18 @@ function generateRanking() {
     const barContainer = document.getElementById("bar-container");
     const rankingList = document.getElementById("ranking-list");
 
-    // 최대 점수 계산 (막대 높이 비율을 정하기 위해 사용)
+    // 최대 점수와 최소 점수 계산
     const maxPoints = Math.max(...users.map(user => user.points), 0);
+    const minPoints = Math.min(...users.map(user => user.points), 0);
+
+    const range = maxPoints - minPoints || 1; 
 
     users.sort((a, b) => b.points - a.points);
 
     let currentRank = 1; 
     let lastScore = null; 
     const minBarHeight = 10; 
+    const rankBoost = 5; 
 
     users.forEach((user, index) => {
         if (user.points !== lastScore) {
@@ -25,9 +29,10 @@ function generateRanking() {
         const bar = document.createElement("div");
         bar.className = `bar bar${index + 1}`;
 
-        // 막대 높이 계산
-        let barHeight = (user.points / maxPoints) * 100;
-        barHeight = Math.max(barHeight, minBarHeight); 
+        let barHeight = ((user.points - minPoints) / range) * 100;
+
+      
+        barHeight = Math.max(barHeight, minBarHeight) + (users.length - currentRank) * rankBoost;
 
         bar.style.height = `${barHeight}%`;
 
@@ -39,7 +44,6 @@ function generateRanking() {
         rank.textContent = `${currentRank}위: ${user.username} (${user.points}점)`;
         rankingList.appendChild(rank);
 
-       
         lastScore = user.points;
     });
 }

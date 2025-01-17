@@ -15,6 +15,8 @@
                         <span class="match-result">
                             {% if game.status == 'completed' and game.winner == user %}
                             <button type="button" class="game-result">결과: 🏆 승리 🏆</button>
+                            {% elif game.status == 'completed' and game.winner == None %}
+                            <button type="button" class="game-result">결과: 무승부 </button>
                             {% elif game.status == 'completed' and game.winner != user %}
                             <button type="button" class="game-result">결과: 😢 패배 😢</button>
                             {% elif game.status == 'pending' and game.player1.username == user.username %}

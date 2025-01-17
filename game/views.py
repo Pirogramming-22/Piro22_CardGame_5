@@ -160,7 +160,6 @@ def counterattack_view(request, pk): #카드 선택 -> 디테일로로
    return HttpResponseBadRequest("잘못된 요청입니다.")
 
 from django.http import HttpResponseBadRequest
-
 def before_detail(request, pk):
     if not request.user.is_authenticated:
         return redirect('user:login')
@@ -176,16 +175,15 @@ def before_detail(request, pk):
     game.player2_choice = int(card)
     game.status = 'completed'
     game.save()
+
     game.determine_winner()
 
-    point = abs(game.player1_choice - game.player2_choice)
-
     if game.winner == game.player1:
-        game.player1.point += point
-        game.player2.point -= point
+        game.player1.point += game.player1_choice
+        game.player2.point -= game.player2_choice
     elif game.winner == game.player2:
-        game.player2.point += point
-        game.player1.point -= point
+        game.player2.point += game.player2_choice
+        game.player1.point -= game.player1_choice
     else:
         pass
 
@@ -193,15 +191,15 @@ def before_detail(request, pk):
     game.player2.save()
 
     if game.winner == game.player1:
-        player1_score = int(game.player1_choice)
-        player2_score = -int(game.player2_choice)
-
+        player1_score = game.player1_choice
+        player2_score = -game.player2_choice
     elif game.winner == game.player2:
-        player2_score = int(game.player2_choice)
-        player1_score = -int(game.player1_choice)
-
-    else :
-        pass
+        player1_score = -game.player1_choice
+        player2_score = game.player2_choice
+    else:
+        # 무승부
+        player1_score = 0
+        player2_score = 0
 
     if game.player1 == request.user:
         return render(request, 'game/game_detail.html', {
@@ -219,8 +217,66 @@ def before_detail(request, pk):
             'point': 0,
         })
 
+# def before_detail(request, pk):
+#     if not request.user.is_authenticated:
+#         return redirect('user:login')
 
-def please(request, pk): #조회용 함수
+#     if request.method != 'POST':
+#         return HttpResponseBadRequest("잘못된 요청입니다.")
+
+#     card = request.POST.get('card')
+#     if card is None:
+#         return HttpResponseBadRequest("카드 데이터가 없습니다.")
+
+#     game = get_object_or_404(Game, pk=pk)
+#     game.player2_choice = int(card)
+#     game.status = 'completed'
+#     game.save()
+#     game.determine_winner()
+
+#     point = abs(game.player1_choice - game.player2_choice)
+
+#     if game.winner == game.player1:
+#         game.player1.point += point
+#         game.player2.point -= point
+#     elif game.winner == game.player2:
+#         game.player2.point += point
+#         game.player1.point -= point
+#     else:
+#         pass
+
+#     game.player1.save()
+#     game.player2.save()
+
+#     if game.winner == game.player1:
+#         player1_score = int(game.player1_choice)
+#         player2_score = -int(game.player2_choice)
+
+#     elif game.winner == game.player2:
+#         player2_score = int(game.player2_choice)
+#         player1_score = -int(game.player1_choice)
+
+#     else :
+#         pass
+
+#     if game.player1 == request.user:
+#         return render(request, 'game/game_detail.html', {
+#             'match': game,
+#             'point': player1_score,
+#         })
+#     elif game.player2 == request.user:
+#         return render(request, 'game/game_detail.html', {
+#             'match': game,
+#             'point': player2_score,
+#         })
+#     else:
+#         return render(request, 'game/game_detail.html', {
+#             'match': game,
+#             'point': 0,
+#         })
+
+
+def please(request, pk):
     if not request.user.is_authenticated:
         return redirect('user:login')
 
@@ -232,20 +288,28 @@ def please(request, pk): #조회용 함수
     game.player1.save()
     game.player2.save()
 
+    player1_score = 0
+    player2_score = 0
+
     if game.winner == game.player1:
         player1_score = int(game.player1_choice)
         player2_score = -int(game.player2_choice)
-
     elif game.winner == game.player2:
         player2_score = int(game.player2_choice)
         player1_score = -int(game.player1_choice)
+    else:
+        player1_score = 0
+        player2_score = 0
 
-    else :
-        pass
-
-
+    if game.player1 == request.user:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
+            'point': player1_score,
+        })
+    elif game.player2 == request.user:
+        return render(request, 'game/game_detail.html', {
+            'match': game,
             'point': player2_score,
-
         })
     else:
         return render(request, 'game/game_detail.html', {
