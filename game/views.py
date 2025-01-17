@@ -147,38 +147,35 @@ def counterattack_view(request, pk): #카드 선택 -> 디테일로로
    return HttpResponseBadRequest("잘못된 요청입니다.")
 
 def before_detail(request, pk):
+    print("before_detail called") 
     if not request.user.is_authenticated:
         return redirect('user:login')
    
     game = Game.objects.get(id = pk)
     game.player2_choice =  int(request.POST.get('card'))
+    game.player1_choice =  int(request.POST.get('card'))
     game.status = 'completed'
     game.save()
     game.determine_winner()
     if game.winner == game.player1:
-        loser_id = game.player2
-        loser = CustomUser.objects.get(id=loser_id)
-        winner_id = game.player1
-        winner = CustomUser.objects.get(id=winner_id)
+        winner_id, loser_id = game.player1, game.player2
         point = game.player1_choice - game.player2_choice
-        loser.point -= point
-        winner.point -= point
-        game.save()
-        loser.save()
-        winner.save()
-        return render(request, 'game/game_detail.html', {'match':game, 'point':str(point)})
     else:
-        loser_id = game.player1
-        loser = CustomUser.objects.get(id=loser_id)
-        winner_id = game.player2
-        winner = CustomUser.objects.get(id=winner_id)
+        winner_id, loser_id = game.player2, game.player1
         point = game.player2_choice - game.player1_choice
-        loser.point -= point
-        winner.point -= point
-        game.save()
-        loser.save()
-        winner.save()
-        return render(request, 'game/game_detail.html', {'match':game, 'point':str(point)})
+
+    winner = CustomUser.objects.get(id=winner_id)
+    loser = CustomUser.objects.get(id=loser_id)
+
+    loser.point -= point
+    winner.point -= point
+    game.save()
+    loser.save()
+    winner.save()
+
+    return render(request, 'game/game_detail.html', {'match': game, 'point': point})
+
+
 
     
 
