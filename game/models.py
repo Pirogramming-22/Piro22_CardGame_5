@@ -22,9 +22,9 @@ class Game(models.Model):
 
     def determine_winner(self):
         if self.player1_choice is not None and self.player2_choice is not None:  # 두 개의 응답이 모두 None이 아닐 때
-            if self.player1_choice > self.player2_choice:
+            if self.player1_choice < self.player2_choice:
                 self.winner = self.player1
-            elif self.player1_choice < self.player2_choice:
+            elif self.player1_choice > self.player2_choice:
                 self.winner = self.player2
             else:
                 self.winner = None  # 무승부
