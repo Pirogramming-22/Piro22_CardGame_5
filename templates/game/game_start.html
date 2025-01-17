@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="game_container">
-    <form action="{% if game %}{% url 'game:attack' game.pk %}{% else %}# {% endif %}" method="post">
+    <form action="{%url 'game:create_game'%}" method="post">
         {% csrf_token %}
         <div class="card-options">
             {% for card in cards %}
@@ -23,7 +23,7 @@
                 <option value="{{ user.id }}">{{ user.username }}</option>
             {% endfor %}
         </select>
-        <button type="submit" class="attack">Attack!</button>
+            <button type="submit" class="create">Attack!</button>
     </form>
 </div>
 {% endblock %}

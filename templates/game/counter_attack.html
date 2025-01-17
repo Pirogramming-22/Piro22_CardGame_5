@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
 <div class="game_container">
-    <form action="{% if game %}{% url 'game:attack' game.pk %}{% else %}# {% endif %}" method="post">
         {% csrf_token %}
         <h3>반격할 카드: </h3>
         <div class="card-options">
@@ -14,7 +14,8 @@
                 </label>
             {% endfor %}
         </div>
-        <button type="submit" class="counter">CounterAttack!</button>
-    </form>
+        <a method="post">
+            <button type="submit" class="counter">CounterAttack!</button>
+        </a>
 </div>
 {% endblock %}

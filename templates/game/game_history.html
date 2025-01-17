@@ -20,10 +20,10 @@
                             {% elif game.status == 'pending' and game.player1.username == user.username %}
                                 진행중.... <a href="{% url 'game:delete_game' game.pk %}">게임취소</a>
                             {% elif game.status == 'pending' and game.player1.username != user.username %}
-                                복수하세요!
+                                <a href="{%url 'game:counterattack' game.pk %}" method="post"><button>복수하세요!</button></a>
                             {% endif %}
                         </span>
-                        <button>게임정보</button>
+                        <a href="{%url 'game:game_detail' game.pk %}"><button>게임정보</button></a>
                     </li>
                 {% endfor %}
             </ul>
