@@ -74,6 +74,9 @@ def dashboard_view(request): #4
     user = request.user  # 현재 로그인한 사용자
     username = user.username  # OAuth 연결 여부와 상관없이 사용자 이름을 사용
     return render(request, 'game/dashboard.html', {'username': username})
+def base(request): #5
+    return render(request, 'main.html')
+
 
 def base(request): #5
     return render(request, 'main.html')
@@ -92,11 +95,6 @@ def game_start_view(request):
     }
     return render(request, 'game/game_start.html', context=ctx)
 
-def game_history_view(request):
-    if not request.user.is_authenticated:
-        return redirect('user:login')
-
-    return render(request, 'game_history.html')
 
 def create_game(request):
     if request.method == 'POST':
@@ -150,3 +148,30 @@ def counterattack_view(request, pk): #카드 선택 -> 디테일로로
         return render(request, 'game/counter_attack.html', counterattack)
    return HttpResponseBadRequest("잘못된 요청입니다.")
 
+
+def game_detail(request, pk): #8
+    game = Game.objects.get(id=pk)
+    return render(request, 'game/game_detail.html', {'match': game})
+
+def go_counterattack(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('user:login')   
+    
+    game = get_object_or_404(Game, pk=pk) 
+    return render(request, 'game/counter_attack.html', {'game':game})
+
+def counterattack_view(request, pk):
+   if not request.user.is_authenticated:
+        return redirect('user:login')
+   
+   game = get_object_or_404(Game, pk=pk) 
+   
+   if request.method == 'POST':
+        cards = random.sample(range(1, 11), 5)  
+        selected_card = request.POST.get('card')  
+        defender = game.player2 if game.player1 == request.user else game.player1 
+        game.player1_choice = selected_card if game.player1 == request.user else game.player1_choice
+        game.player2_choice = selected_card if game.player2 == request.user else game.player2_choice
+        game.save()
+        game.determine_winner()
+        return render(request, 'game/game_detail.html', {'game': game, 'cards': cards})

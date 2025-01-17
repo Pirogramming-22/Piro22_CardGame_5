@@ -77,6 +77,31 @@
         margin-top: 10px;
         margin-bottom: 30px;
     }
+    @keyframes wave {
+
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    p span {
+        display: inline-block;
+        animation: wave 1s ease-in-out infinite;
+    }
+
+    p span:nth-child(odd) {
+        animation-delay: 0.2s;
+    }
+
+    p span:nth-child(even) {
+        animation-delay: 0.4s;
+    }
     .login_btn_start {
         margin-top: 20px;
         display: inline-block;
@@ -101,20 +126,46 @@
         </div>
         <ul>
             {% if user.is_authenticated %}
-            <a href="{% url 'game:dashboard' %}">Dashboard</a>
-            <a href="{% url 'user:logout' %}">Logout</a>
+            <div class="main_nav">
+                <a href="{% url 'game:dashboard' %}">
+                    <button type="button">Dashboard</button>
+                </a>
+                <a href="{% url 'user:logout' %}">
+                    <button type="button">Logout</button>
+                </a>
+            </div>
             {% else %}
-            <a href="{% url 'user:login' %}">Login</a>
-            <a href="{% url 'user:signup' %}">Sign Up</a>
+            <div class="main_nav">
+                <a href="{% url 'user:login' %}">
+                    <button type="button">Login</button>
+                </a>
+                <a href="{% url 'user:signup' %}">
+                    <button type="button">Sign Up</button>
+                </a>
+            </div>
             {% endif %}
         </ul>
     </nav>
   </main>
   <section>
-    <p>Piro Game</p>
-    <button type="button" class="login_btn_start">Start</button>
+    <p>
+        <span>P</span>
+        <span>i</span>
+        <span>r</span>
+        <span>o</span>
+        <span> </span>
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+    </p>
+    <!--start 버튼 클릭 시 수정-->
+    {% if user.is_authenticated %}
+    <a href="{% url 'game:game_start_view' %}"><button type="button" class="login_btn_start">Start</button></a>
+    {% else %}
+    <a href="{% url 'game:game_start_view' %}"><button type="button" class="login_btn_start">Start</button></a>
+    {% endif %}
   </section>
-  <script src="{% static 'game/main.js' %}"></script>
-
+ 
 </body>
 </html>
