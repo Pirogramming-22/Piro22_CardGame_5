@@ -72,6 +72,31 @@
         margin-top: 10px;
         margin-bottom: 30px;
     }
+    @keyframes wave {
+
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    p span {
+        display: inline-block;
+        animation: wave 1s ease-in-out infinite;
+    }
+
+    p span:nth-child(odd) {
+        animation-delay: 0.2s;
+    }
+
+    p span:nth-child(even) {
+        animation-delay: 0.4s;
+    }
     .login_btn_start {
         margin-top: 20px;
         display: inline-block;
@@ -126,7 +151,17 @@
     </nav>
   </main>
   <section>
-    <p>Piro Game</p>
+    <p>
+        <span>P</span>
+        <span>i</span>
+        <span>r</span>
+        <span>o</span>
+        <span> </span>
+        <span>G</span>
+        <span>a</span>
+        <span>m</span>
+        <span>e</span>
+    </p>
     <!--start 버튼 클릭 시 수정-->
     {% if user.is_authenticated %}
     <a href="{% url 'game:game_start_view' %}"><button type="button" class="login_btn_start">Start</button></a>
